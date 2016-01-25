@@ -24,7 +24,6 @@ cmake_minimum_required( VERSION 3.0.0 )
 
 include( CheckCCompilerFlag       )
 include( CheckCXXCompilerFlag     )
-include( CheckFortranCompilerFlag )
 include( CMakeParseArguments      )
 
 function( add_compile_flags )
@@ -58,8 +57,6 @@ function( add_compile_flags )
           check_c_compiler_flag( "${flag}" supported )
         elseif( "${lang}" STREQUAL CXX )
           check_cxx_compiler_flag( "${flag}" supported )
-        elseif( "${lang}" STREQUAL FORTRAN )
-          check_fortran_compiler_flag( "${flag}" supported )
         else()
           message( FATAL_ERROR
             "[MunkeiAddCompileFlags] Unsupported language ‘${lang}’"
