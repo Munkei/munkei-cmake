@@ -57,6 +57,8 @@ function( add_compile_flags )
           check_c_compiler_flag( "${flag}" supported )
         elseif( "${lang}" STREQUAL CXX )
           check_cxx_compiler_flag( "${flag}" supported )
+        elseif( "${lang}" STREQUAL RC )
+          # No-op
         else()
           message( FATAL_ERROR
             "[MunkeiAddCompileFlags] Unsupported language ‘${lang}’"
