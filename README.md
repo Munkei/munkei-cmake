@@ -1,5 +1,9 @@
 # Munkei's CMake Modules #
 
+[![GitHub license](https://img.shields.io/github/license/Munkei/munkei-cmake.svg?style=flat-square)](https://github.com/Munkei/munkei-cmake/blob/master/LICENSE.md)
+
+---
+
 ## Modules ##
 
 *   **[MunkeiAddCompileFlags]**
