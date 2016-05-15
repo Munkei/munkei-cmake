@@ -50,7 +50,7 @@ function( tags )
 
     message( STATUS "[MunkeiTags] Adding target ‘TAGS’" )
     add_custom_target( TAGS
-      COMMAND           ${ctags} -R .
+      COMMAND           ${ctags} -R . ${CMAKE_BINARY_DIR}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
   elseif( ARGS_REQUIRED )
