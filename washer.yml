@@ -1,0 +1,40 @@
+tools:
+
+  Encoding:
+    type: Encoding
+    include:
+      - application/*
+      - text/*
+
+  Executable:
+    type: Executable
+    include:
+      - "*"
+    options:
+      only:
+        - "*.sh"
+
+  Line Endings:
+    type: LineEndings
+    include:
+      - application/*
+      - text/*
+
+  Tabs:
+    type: Regex
+    include:
+      - application/*
+      - text/*
+    options:
+      mode: nomatch
+      pattern: "\\t"
+
+  TrailingWhitespace:
+    type: TrailingWhitespace
+    include:
+      - application/*
+      - text/*
+
+exclude:
+  - .git
+  - application/x-trash
