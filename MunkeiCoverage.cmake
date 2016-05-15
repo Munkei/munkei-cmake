@@ -52,7 +52,6 @@ function( enable_coverage )
       COMMAND           ${lcov}
                           --base-directory ${CMAKE_SOURCE_DIR}
                           --capture
-                          --checksum
                           --directory ${CMAKE_BINARY_DIR}
                           --no-external
                           --output-file ${tracefile}
