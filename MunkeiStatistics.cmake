@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,20 +27,20 @@ include( CMakeParseArguments )
 function( statistics )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs
     EXECUTABLE
-  )
+    )
   set( multiValueArgs
     EXCLUDE_DIRS
     OPTIONS
-  )
+    )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   if( DEFINED ARGS_EXECUTABLE )
     set( cloc ${ARGS_EXECUTABLE} )
@@ -64,10 +64,10 @@ function( statistics )
     message( STATUS "[MunkeiStatistics] Adding target ‘statistics’" )
     add_custom_target( statistics
       COMMAND           ${cloc}
-                          ${options}
-                          .
+      ${options}
+      .
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
+      )
   elseif( ARGS_REQUIRED )
     message( FATAL_ERROR "[MunkeiStatistics] Could not find cloc" )
   else()

@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,19 +27,19 @@ include( CMakeParseArguments )
 function( washer )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs
     EXECUTABLE
-  )
+    )
   set( multiValueArgs
     OPTIONS
-  )
+    )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   if( DEFINED ARGS_EXECUTABLE )
     set( washer ${ARGS_EXECUTABLE} )
@@ -54,9 +54,9 @@ function( washer )
     add_test(
       NAME              washer
       COMMAND           ${washer}
-                          ${ARGS_OPTIONS}
+      ${ARGS_OPTIONS}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
+      )
   elseif( ARGS_REQUIRED )
     message( FATAL_ERROR "[MunkeiWasher] Could not find Washer" )
   else()

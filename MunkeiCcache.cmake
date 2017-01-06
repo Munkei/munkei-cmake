@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,17 +27,17 @@ include( CMakeParseArguments )
 function( ccache )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs
     EXECUTABLE
-  )
+    )
   set( multiValueArgs )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   if( DEFINED ARGS_EXECUTABLE )
     set( ccache ${ARGS_EXECUTABLE} )

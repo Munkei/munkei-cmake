@@ -1,0 +1,19 @@
+addons:
+  apt:
+    packages:
+    - cmake
+    - pandoc
+    sources:
+      - george-edison55-precise-backports
+
+install:
+  - gem install mdl
+
+script:
+  - mkdir -pv build
+  - cd build
+  - cmake ..
+  - cmake --build . --target all
+  - ctest -VV
+
+sudo: false

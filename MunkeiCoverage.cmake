@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ include( CMakeParseArguments )
 function( enable_coverage )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs )
   set( multiValueArgs )
   cmake_parse_arguments( ARGS
@@ -35,7 +35,7 @@ function( enable_coverage )
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   find_program( genhtml genhtml )
   find_program( lcov    lcov )
@@ -50,37 +50,37 @@ function( enable_coverage )
 
     add_custom_command(
       COMMAND           ${lcov}
-                          --base-directory ${CMAKE_SOURCE_DIR}
-                          --capture
-                          --directory ${CMAKE_BINARY_DIR}
-                          --no-external
-                          --output-file ${tracefile}
-                          --test-name ${PROJECT_NAME}
+      --base-directory ${CMAKE_SOURCE_DIR}
+      --capture
+      --directory ${CMAKE_BINARY_DIR}
+      --no-external
+      --output-file ${tracefile}
+      --test-name ${PROJECT_NAME}
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
       VERBATIM
       COMMENT           "Running lcov"
       OUTPUT            ${tracefile}
-    )
+      )
 
     add_custom_target( coverage
       COMMAND           ${genhtml}
-                          --show-details
-                          --output-directory ${coverage_dir}
-                          --title ${PROJECT_NAME}
-                          --legend
-                          ${tracefile}
+      --show-details
+      --output-directory ${coverage_dir}
+      --title ${PROJECT_NAME}
+      --legend
+      ${tracefile}
       COMMENT           "Running genhtml"
       DEPENDS           ${tracefile}
       VERBATIM
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
+      )
     message( STATUS "[MunkeiCoverage] Added target ‘coverage’" )
 
     set( COVERAGE_ENABLED TRUE PARENT_SCOPE )
   elseif( ARGS_REQUIRED )
     message( FATAL_ERROR
       "[MunkeiCoverage] Couldn't find `genhtml` and/or `lcov`"
-    )
+      )
   else()
     message( STATUS "[MunkeiCoverage] Skipping" )
   endif()
@@ -91,11 +91,11 @@ function( coverage_target target )
     target_compile_options( ${target} PRIVATE
       -fprofile-arcs
       -ftest-coverage
-    )
+      )
 
     target_link_libraries( ${target}
       gcov
-    )
+      )
 
     set( target_name coverage-measure-${target} )
     add_custom_target( ${target_name}
@@ -103,7 +103,7 @@ function( coverage_target target )
       COMMENT           "Measuring coverage of ‘${target}’"
       VERBATIM
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
+      )
     add_dependencies( coverage ${target_name} )
   endif( COVERAGE_ENABLED )
 endfunction( coverage_target )

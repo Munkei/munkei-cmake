@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,19 +27,19 @@ include( CMakeParseArguments )
 function( valgrind )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs
     EXECUTABLE
-  )
+    )
   set( multiValueArgs
     TARGETS
-  )
+    )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   if( NOT DEFINED ARGS_TARGETS )
     message( FATAL_ERROR "[MunkeiValgrind] No targets specified" )
@@ -57,16 +57,16 @@ function( valgrind )
       set( test_name valgrind-${target} )
       message( STATUS
         "[MunkeiValgrind] Adding Valgrind test for ‘${target}’ (‘${test_name}’)"
-      )
+        )
       add_test(
         NAME              ${test_name}
         COMMAND           ${valgrind}
-                            --quiet
-                            --leak-check=yes
-                            --errors-for-leak-kinds=all
-                            $<TARGET_FILE:${target}>
+        --quiet
+        --leak-check=yes
+        --errors-for-leak-kinds=all
+        $<TARGET_FILE:${target}>
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      )
+        )
     endforeach( target ${ARGS_TARGETS} )
   elseif( ARGS_REQUIRED )
     message( FATAL_ERROR "[MunkeiValgrind] Could not find Valgrind" )

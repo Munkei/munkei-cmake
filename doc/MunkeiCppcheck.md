@@ -2,11 +2,9 @@
 
 ```cmake
 cppcheck(
+  [CPPCHECK_EXECUTABLE ...]
   [ENABLE ...]
-  [EXECUTABLE ...]
   [FORCE]
-  [IGNORE ...]
-  [INCLUDE_DIRS ...]
   [INCONCLUSIVE]
   [OPTIONS ...]
   [REQUIRED]
@@ -15,35 +13,27 @@ cppcheck(
 )
 ```
 
-Creates a test called `cppcheck` that runs [Cppcheck] in
-`${CMAKE_CURRENT_SOURCE_DIR}`.
+Creates a test called `cppcheck` that runs [Cppcheck] in on all files, using
+CMake’s `compile_commands.json`.
 
-For details about some of the options below see Cppcheck's documentation (e.g.
+For details about some of the options below see Cppcheck’s documentation (e.g.
 `man cppcheck`).
 
-*   `ENABLE` *(optional)*
-
-    Corresponds to Cppcheck's `--enable` option. Default is `all`.
-
-*   `EXECUTABLE` *(optional)*
+*   `CPPCHECK_EXECUTABLE` *(optional)*
 
     Specify the path to `cppcheck`.
 
+*   `ENABLE` *(optional)*
+
+    Corresponds to Cppcheck’s `--enable` option. Default is `all`.
+
 *   `FORCE` *(optional)*
 
-    Corresponds to Cppcheck's `--force` option.
-
-*   `IGNORE` *(list, optional)*
-
-    Paths to ignore. Corresponds to Cppcheck's `-i` option.
-
-*   `INCLUDE_DIRS` *(list, optional)*
-
-    Corresponds to Cppcheck's `-I` option.
+    Corresponds to Cppcheck’s `--force` option.
 
 *   `INCONCLUSIVE` *(optional)*
 
-    Corresponds to Cppcheck's `--inconclusive` option.
+    Corresponds to Cppcheck’s `--inconclusive` option.
 
 *   `OPTIONS` *(list, optional)*
 
@@ -55,11 +45,11 @@ For details about some of the options below see Cppcheck's documentation (e.g.
 
 *   `SUPPRESS` *(list, optional)*
 
-    Corresponds to Cppcheck's `--suppress` option.
+    Corresponds to Cppcheck’s `--suppress` option.
 
 *   `SUPPRESS` *(string, optional)*
 
-    Corresponds to Cppcheck's `--template` option.
+    Corresponds to Cppcheck’s `--template` option.
 
 ## Requirements ##
 

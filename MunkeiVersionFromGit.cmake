@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ function( version_from_git )
     INCLUDE_HASH
     LOG
     TIMESTAMP
-  )
+    )
   set( multiValueArgs )
   cmake_parse_arguments( ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
@@ -60,11 +60,11 @@ function( version_from_git )
     ERROR_VARIABLE    git_error
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_STRIP_TRAILING_WHITESPACE
-  )
+    )
   if( NOT git_result EQUAL 0 )
     message( FATAL_ERROR
       "[MunkeiVersionFromGit] Failed to execute Git: ${git_error}"
-    )
+      )
   endif()
 
   # Get Git tag
@@ -76,11 +76,11 @@ function( version_from_git )
     ERROR_VARIABLE    git_error
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_STRIP_TRAILING_WHITESPACE
-  )
+    )
   if( NOT git_result EQUAL 0 )
     message( FATAL_ERROR
       "[MunkeiVersionFromGit] Failed to execute Git: ${git_error}"
-    )
+      )
   endif()
 
   if( git_tag MATCHES "^v(0|[1-9][0-9]*)[.](0|[1-9][0-9]*)[.](0|[1-9][0-9]*)(-[.0-9A-Za-z-]+)?([+][.0-9A-Za-z-]+)?$" )
@@ -92,7 +92,7 @@ function( version_from_git )
   else()
     message( FATAL_ERROR
       "[MunkeiVersionFromGit] Git tag isn't valid semantic version: [${git_tag}]"
-    )
+      )
   endif()
 
   if( "${git_tag}" STREQUAL "${git_describe}" )
@@ -153,7 +153,7 @@ function( version_from_git )
      Identifiers: [${identifiers}]
      Metadata:    [${metadata}]
      SemVer:      [${semver}]"
-    )
+      )
   endif( ARG_LOG )
 
   # Set parent scope variables

@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,19 +29,19 @@ include( CMakeParseArguments      )
 function( add_compile_flags )
   set( options
     REQUIRED
-  )
+    )
   set( oneValueArgs
     LOG
-  )
+    )
   set( multiValueArgs
     LANGUAGES
-  )
+    )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
   if( NOT DEFINED ARGS_LANGUAGES )
     get_property( ARGS_LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES )
@@ -62,7 +62,7 @@ function( add_compile_flags )
         else()
           message( FATAL_ERROR
             "[MunkeiAddCompileFlags] Unsupported language ‘${lang}’"
-          )
+            )
         endif()
 
         if( supported )
@@ -70,7 +70,7 @@ function( add_compile_flags )
         elseif( ${ARGS_LOG} )
           message( STATUS
             "[MunkeiAddCompileFlags] Flag ‘${flag}’ unsupported for language ${lang}"
-          )
+            )
         endif()
         unset( supported CACHE )
       endif( NOT ${should} )
@@ -79,7 +79,7 @@ function( add_compile_flags )
         if( ${ARGS_LOG} )
           message( STATUS
             "[MunkeiAddCompileFlags] Adding flag ‘${flag}’ for language ${lang}"
-          )
+            )
         endif( ${ARGS_LOG} )
 
         set( CMAKE_${lang}_FLAGS "${CMAKE_${lang}_FLAGS} ${flag}" )
