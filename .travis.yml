@@ -6,6 +6,7 @@ sudo: false
 addons:
   apt:
     packages:
+    - aspell
     - cmake
     - cmake-data
     - pandoc
@@ -18,8 +19,9 @@ install:
   - gem install mdl
 
 before_script:
-  - cmake --version
-  - mdl --version
+  - aspell --version
+  - cmake  --version
+  - mdl    --version
   - pandoc --version
 
 script:

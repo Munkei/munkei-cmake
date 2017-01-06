@@ -47,10 +47,11 @@ foreach( file IN LISTS doc_files )
     NAMES sh bash
     DOC "Shell command"
     )
+  find_program( ASPELL_EXECUTABLE aspell )
   add_test(
     NAME              spellcheck_${name}
     COMMAND           "${shell}"
-    -c "aspell list --home-dir '${CMAKE_SOURCE_DIR}' --mode html < '${html}'"
+    -c "'${ASPELL_EXECUTABLE}' list --home-dir '${CMAKE_SOURCE_DIR}' --mode html < '${html}'"
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
   set_tests_properties( spellcheck_${name} PROPERTIES
