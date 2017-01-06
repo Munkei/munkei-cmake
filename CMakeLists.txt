@@ -22,40 +22,19 @@
 
 cmake_minimum_required( VERSION 3.0.0 )
 
-include( CMakeParseArguments )
+project( Munkei-CMake
+  LANGUAGES
+  )
 
-function( tags )
-  set( options
-    REQUIRED
-    )
-  set( oneValueArgs
-    EXECUTABLE
-    )
-  set( multiValueArgs )
-  cmake_parse_arguments( ARGS
-    "${options}"
-    "${oneValueArgs}"
-    "${multiValueArgs}"
-    ${ARGN}
-    )
+enable_testing()
 
-  if( DEFINED ARGS_EXECUTABLE )
-    set( ctags ${ARGS_EXECUTABLE} )
-  else( DEFINED ARGS_EXECUTABLE )
-    find_program( ctags ctags )
-  endif( DEFINED ARGS_EXECUTABLE )
+file( GLOB cmake_files
+  LIST_DIRECTORIES true
+  "${CMAKE_SOURCE_DIR}/*.cmake"
+  )
 
-  if( ctags )
-    message( STATUS "[MunkeiTags] Using ctags: ${ctags}" )
+foreach( file IN LISTS cmake_files )
+  include( "${file}" )
+endforeach( file IN LISTS cmake_files )
 
-    message( STATUS "[MunkeiTags] Adding target ‘TAGS’" )
-    add_custom_target( TAGS
-      COMMAND           ${ctags} -R . ${CMAKE_BINARY_DIR}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      )
-  elseif( ARGS_REQUIRED )
-    message( FATAL_ERROR "[MunkeiTags] Could not find ctags" )
-  else()
-    message( STATUS "[MunkeiTags] Skipping" )
-  endif()
-endfunction( tags )
+add_subdirectory( doc  )

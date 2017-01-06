@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016 Theo Willows
+# Copyright (c) 2016-2017 Theo Willows
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,33 +29,34 @@ function( cppcheck )
     FORCE
     INCONCLUSIVE
     REQUIRED
-  )
+    )
   set( oneValueArgs
+    CPPCHECK_EXECUTABLE
     ENABLE
-    EXECUTABLE
+    NAME
     TEMPLATE
-  )
+    )
   set( multiValueArgs
-    IGNORE
-    INCLUDE_DIRS
     OPTIONS
     SUPPRESS
-  )
+    )
   cmake_parse_arguments( ARGS
     "${options}"
     "${oneValueArgs}"
     "${multiValueArgs}"
     ${ARGN}
-  )
+    )
 
-  if( DEFINED ARGS_EXECUTABLE )
-    set( cppcheck ${ARGS_EXECUTABLE} )
-  else( DEFINED ARGS_EXECUTABLE )
-    find_program( cppcheck cppcheck )
-  endif( DEFINED ARGS_EXECUTABLE )
+  set( CMAKE_EXPORT_COMPILE_COMMANDS ON PARENT_SCOPE )
 
-  if( cppcheck )
-    message( STATUS "[MunkeiCppcheck] Using Cppcheck: ${cppcheck}" )
+  if( DEFINED ARGS_CPPCHECK_EXECUTABLE )
+    set( CPPCHECK_EXECUTABLE ${ARGS_CPPCHECK_EXECUTABLE} )
+  else( DEFINED ARGS_CPPCHECK_EXECUTABLE )
+    find_program( CPPCHECK_EXECUTABLE cppcheck )
+  endif( DEFINED ARGS_CPPCHECK_EXECUTABLE )
+
+  if( CPPCHECK_EXECUTABLE )
+    message( STATUS "[MunkeiCppcheck] Using Cppcheck: ${CPPCHECK_EXECUTABLE}" )
 
     if( NOT ARGS_ENABLE )
       set( ARGS_ENABLE all )
@@ -65,7 +66,8 @@ function( cppcheck )
       --enable=${ARGS_ENABLE}
       --error-exitcode=2
       --inline-suppr
-    )
+      --project=${CMAKE_BINARY_DIR}/compile_commands.json
+      )
 
     if( ARGS_FORCE )
       set( options ${options} --force )
@@ -75,37 +77,37 @@ function( cppcheck )
       set( options ${options} --inconclusive )
     endif( ARGS_INCONCLUSIVE )
 
-    foreach( dir ${ARGS_IGNORE} )
-      set( options ${options} -i "${dir}" )
-    endforeach( dir ${ARGS_IGNORE} )
-
-    foreach( dir ${ARGS_INCLUDE_DIRS} )
-      set( options ${options} -I "${dir}" )
-    endforeach( dir ${ARGS_INCLUDE_DIRS} )
-
     foreach( suppress ${ARGS_SUPPRESS} )
       set( options ${options} --suppress=${suppress} )
     endforeach( suppress ${ARGS_SUPPRESS} )
-
-    foreach( option ${ARGS_OPTIONS} )
-      set( options ${options} ${option} )
-    endforeach( option ${ARGS_OPTIONS} )
 
     if( DEFINED ARGS_TEMPLATE )
       set( options ${options} --template=${ARGS_TEMPLATE} )
     endif( DEFINED ARGS_TEMPLATE )
 
-    message( STATUS "[MunkeiCppcheck] Adding test ‘cppcheck’" )
+    foreach( option ${ARGS_OPTIONS} )
+      set( options ${options} ${option} )
+    endforeach( option ${ARGS_OPTIONS} )
+
+    if( DEFINED ARGS_NAME )
+      set( name ${ARGS_NAME} )
+    else( DEFINED ARGS_NAME )
+      set( name cppcheck )
+    endif( DEFINED ARGS_NAME )
+
+    message( STATUS "[MunkeiCppcheck] Adding test ‘${name}’" )
     add_test(
-      NAME              cppcheck
-      COMMAND           ${cppcheck}
-                          ${options}
-                          .
+      NAME              ${name}
+      COMMAND           ${CPPCHECK_EXECUTABLE}
+      ${options}
+      .
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
+      )
   elseif( ARGS_REQUIRED )
     message( FATAL_ERROR "[MunkeiCppcheck] Could not find Cppcheck" )
-  else()
+  else( CPPCHECK_EXECUTABLE )
     message( STATUS "[MunkeiCppcheck] Skipping Cppcheck" )
-  endif()
+  endif( CPPCHECK_EXECUTABLE )
+
+  set( CPPCHECK_EXECUTABLE ${CPPCHECK_EXECUTABLE} PARENT_SCOPE )
 endfunction( cppcheck )

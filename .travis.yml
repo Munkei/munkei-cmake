@@ -1,0 +1,33 @@
+dist: trusty
+sudo: false
+
+#
+
+addons:
+  apt:
+    packages:
+    - aspell
+    - aspell-en
+    - cmake
+    - cmake-data
+    - pandoc
+    sources:
+      - george-edison55-precise-backports
+
+#
+
+install:
+  - gem install mdl
+
+before_script:
+  - aspell --version
+  - cmake  --version
+  - mdl    --version
+  - pandoc --version
+
+script:
+  - mkdir -pv build
+  - cd build
+  - cmake ..
+  - cmake --build . --target all
+  - ctest -VV

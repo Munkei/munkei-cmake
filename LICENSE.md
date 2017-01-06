@@ -1,6 +1,6 @@
 # The MIT License (MIT) #
 
-Copyright (c) 2016 Theo Willows
+Copyright (c) 2016-2017 Theo Willows
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
