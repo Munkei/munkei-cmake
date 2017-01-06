@@ -10,6 +10,11 @@ addons:
 install:
   - gem install mdl
 
+before_script:
+  - cmake --version
+  - mdl --version
+  - pandoc --version
+
 script:
   - mkdir -pv build
   - cd build

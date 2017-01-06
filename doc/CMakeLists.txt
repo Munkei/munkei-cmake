@@ -35,7 +35,6 @@ foreach( file IN LISTS doc_files )
     --table-of-contents
     --highlight-style=pygments
     --self-contained
-    --html-q-tags
     ${file}
     MAIN_DEPENDENCY   ${file}
     WORKING_DIRECTORY ${html_dir}
