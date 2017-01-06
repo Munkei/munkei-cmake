@@ -1,5 +1,6 @@
 # Munkei's CMake Modules #
 
+[![Travis](https://img.shields.io/travis/Munkei/munkei-cmake.svg?style=flat-square)](https://travis-ci.org/Munkei/munkei-cmake)
 [![GitHub license](https://img.shields.io/github/license/Munkei/munkei-cmake.svg?style=flat-square)](https://github.com/Munkei/munkei-cmake/blob/master/LICENSE.md)
 
 ---
